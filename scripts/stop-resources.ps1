@@ -6,11 +6,11 @@
 #>
 
 try {
-    "Logging in to Azure..."
-    $Conn = Get-AutomationConnection -Name AzureRunAsConnection 
+    "Logging in to Azure..."    
     Connect-AzAccount -Identity
-    "Selecting subscription $($Conn.SubscriptionID)..."
-    Select-AzSubscription -SubscriptionId $Conn.SubscriptionID
+
+    $subscriptionId = (Get-AzContext).Subscription.Id
+    "Subscription $($subscriptionId)"
 }
 catch {
     Write-Error "Failed to connect to Azure: $_"
