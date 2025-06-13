@@ -7,7 +7,10 @@
 
 try {
     "Logging in to Azure..."
+    $Conn = Get-AutomationConnection -Name AzureRunAsConnection 
     Connect-AzAccount -Identity
+    "Selecting subscription $($Conn.SubscriptionID)..."
+    Select-AzSubscription -SubscriptionId $Conn.SubscriptionID
 }
 catch {
     Write-Error "Failed to connect to Azure: $_"
